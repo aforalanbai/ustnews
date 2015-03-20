@@ -1,98 +1,49 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>CodePen - Ionic : Slidebox with Dynamic Slides</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+  <html>
   <head>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
+    <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>Tabbed Slide box</title>
+    <title>Ionic App</title>
+      <!-- your app's css -->
 
-    <!-- ionic css -->
+      <!-- ionic/angularjs scripts -->
       <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-
-    <!-- your app's css -->
-    <link href="css/tabSlideBox.css" rel="stylesheet">
-
-    <!-- ionic/angularjs scripts -->
+      <link href="css/tabSlideBox.css" rel="stylesheet">
       <script src="lib/ionic/js/ionic.bundle.js"></script>
-	
-	<script src="js/tabSlideBox.js"></script>
-
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.mobile.js"></script>
+      <script src="js/tabSlideBox.js"></script>
       <script src="cordova.js"></script>
+      <style>
+          .text-center
+          {
+              text-align: center !important;
+          }
+          .slider-slide h3{
+              color:#fff;
+              margin-top:10px;
+          }
+          .scroll{
+              height:100%;
+          }
 
-
-      <!-- your app's script -->
-    <script>
-	    var app = angular.module('starter', ['ionic','tabSlideBox'])
-                app.run(function($ionicPlatform,$ionicSideMenuDelegate,$rootScope) {
-                    $ionicPlatform.ready(function() {
-                        $rootScope.toggleLeft = function() {
-                            $ionicSideMenuDelegate.toggleLeft();
-                        };
-                        $rootScope.login = function() {
-                            $scope.modal.show();
-                        };
-                        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-                        // for form inputs)
-                        if (window.cordova && window.cordova.plugins.Keyboard) {
-                            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                        }
-                        if (window.StatusBar) {
-                            // org.apache.cordova.statusbar required
-                            StatusBar.styleDefault();
-                        }
-                    });
-                });
-
-
-        app.config(function($stateProvider, $urlRouterProvider) {
-			$stateProvider.state('index', {
-				url : '/',
-				templateUrl : 'index.html',
-				controller : 'IndexCtrl'
-			})
-                    .state('browse', {
-                url : '/',
-                templateUrl : 'browse.html',
-                controller : 'BrowseCtrl'
-            });
-
-			$urlRouterProvider.otherwise("/");
-		});
-
-        app.controller("IndexCtrl", ['$rootScope', "$scope", "$stateParams", "$q", "$location", "$window", '$timeout','$state',
-			function($rootScope, $scope, $stateParams, $q, $location, $window, $timeout,$state){
-        	$scope.gotobrowse = function(){
-				$state.go("browse");
-			};
-//        	$scope.onSlideMove = function(data){
-//				alert("You have selected " + data.index + " tab");
-//			};
-        }]);
-        app.controller("BrowseCtrl", ['$rootScope', "$scope", "$stateParams", "$q", "$location", "$window", '$timeout',
-            function($rootScope, $scope, $stateParams, $q, $location, $window, $timeout){
-//        	$scope.onSlideMove = function(data){
-//				alert("You have selected " + data.index + " tab");
-//			};
-            }]);
-    </script>
-
-	<style>
-        .text-center
-        {
-            text-align: center !important;
-        }
-		.slider-slide h3{
-			color:#fff;
-			margin-top:10px;
-		}
-		.scroll{
-     		height:100%;
-		}
-		
-		.tabbed-slidebox .tsb-icons:after{
-			display:none;
-		}
-	</style>
+          .tabbed-slidebox .tsb-icons:after{
+              display:none;
+          }
+      </style>
 
       <style>
           .padding-0
@@ -110,7 +61,7 @@
           }
           .width-100
           {
-             width:100%;
+              width:100%;
           }
           .padding-top-10
           {
@@ -176,7 +127,9 @@
 
       </style>
   </head>
-  <body ng-app="starter" animation="slide-left-right-ios7">
+
+  <body ng-app="ionicApp" animation="slide-left-right-ios7">
+
   <ion-side-menus enable-menu-with-back-views="false">
       <ion-side-menu-content>
           <ion-nav-bar class="bar-stable">
@@ -203,7 +156,7 @@
                       Search
                   </ion-item>
                   <ion-item nav-clear menu-close ng-click="gotobrowse()">
-                     Browse
+                      Browse
                   </ion-item>
                   <ion-item nav-clear menu-close href="#/app/playlists">
                       Playlists
@@ -213,271 +166,298 @@
       </ion-side-menu>
   </ion-side-menus>
 
-  <script id="browse.html" type="text/ng-template">
-      <ion-view view-title="Playlists" hide-nav-bar="true">
-          <ion-header-bar align-title="left" class="bar-dark">
-              <div class="buttons">
-                  <button class="button button-icon button-clear ion-ios7-cart-outline ion-navicon" ng-click="toggleLeft()">
-                  </button>
-              </div>
-              <h1 class="title" style="text-align: center;width: 60%;">
-              </h1>
-              <div class="buttons">
-                  <button style="margin-right:5px" class="button button-icon button-clear ion-ios7-search">
-                  </button>
-                  <button style="margin-right:5px" class="button button-icon button-clear ion-ios7-plus-outline">
-                  </button>
-                  <button style="margin-right:5px" class="button button-icon button-clear ion-usb" ng-click="gotoslidetabs()">
-                  </button>
-              </div>
-          </ion-header-bar>
-          <ion-content>
-              <h1>Browse</h1>
-          </ion-content>
-      </ion-view>
-  </script>
   <script id="index.html" type="text/ng-template">
-        <ion-view title="Scrollable Tabbed Slide box" hide-nav-bar="true">
-            <ion-header-bar align-title="left" class="bar-positive">
-                <div class="buttons">
-                    <button class="button button-icon button-clear ion-ios7-cart-outline ion-navicon" ng-click="toggleLeft()">
-                    </button>
-                </div>
-                <h1 class="title ">News @ Noon</h1>
-                <div class="buttons">
-                    <img src="img/ustglobal.jpg"/>
-                </div>
-            </ion-header-bar>
-            <ion-content scroll="false">
-          	<tab-slide-box>
-			    	<div class="tsb-icons">
-			    		<div class="tsb-ic-wrp">
-							<ion-scroll direction="x" class="tsb-hscroll">
-							<a href="javascript:;" class="ion-home1">Latest</a>
-							<a href="javascript:;" class="ion-game-controller-b1">Popular</a>
-							<a href="javascript:;" class="ion-email1">Favorites</a>
-							</ion-scroll>
-						</div>
-			    	</div>
-			        <ion-slide-box show-pager="false"  on-slide-changed="slideHasChanged($index)">
-			            <ion-slide>
-			                <h3>Latest</h3>
-			            </ion-slide>
-			            <ion-slide>
-                        <ion-content>
-                            <div class="row padding-0">
-                                <div class="col div1" style="background: url('img/news1.jpg'); background-size: 100% 100%">
-                                    <div class="row">
-                                <div class="col-60 width-100 padding-top-10">
-                                    <h3>NAJNOVILE VESTI</h3>
-                                </div>
-                                <div class="col-40 text-right width-100">
-                                    <button style="" class="button button-small button-positive padding-left-20 padding-right-20">
-                                        Tech
-                                    </button>
-                                </div>
-                                    </div>
-                                    <div class="row padding-top-6">
-                                        <div class="light-heading">
-                                            Novi Canon ofbeebefb super
-                                            cenenm izlala u Februvafe
-                                        </div>
-                                    </div>
-                                    <div class="row padding-top-6">
-                                        <div class="col-50 width-100">
-                                            February 2,2015 12:58
-                                        </div>
-                                        <div class="col-50 width-100">
-                                                <div class="float-right width-30"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
-                                                <div class="float-right width-30"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
-                                                <div class="float-right width-30"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row padding-0">
-                                <div class="col-50 width-100" style="border: 4px solid #201727">
-                                    <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
-                                        <div class="row">
-                                            <div class="text-right width-100">
-                                                <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
-                                                    Tech
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 light-heading2">
-                                                Novi Canon ofbeebefb super
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 div2-date">
-                                                February 2,2015 12:58
-                                            </div>
-                                            </div>
-                                        <div class="row padding-top-6">
-                                        <div class="width-100">
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-50 width-100" style="border: 4px solid #201727">
-                                    <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
-                                        <div class="row">
-                                            <div class="text-right width-100">
-                                                <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
-                                                    Tech
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 light-heading2">
-                                                Novi Canon ofbeebefb super
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 div2-date">
-                                                February 2,2015 12:58
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100">
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row padding-0">
-                                <div class="col-50 width-100" style="border: 4px solid #201727">
-                                    <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
-                                        <div class="row">
-                                            <div class="text-right width-100">
-                                                <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
-                                                    Tech
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 light-heading2">
-                                                Novi Canon ofbeebefb super
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 div2-date">
-                                                February 2,2015 12:58
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100">
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-50 width-100" style="border: 4px solid #201727">
-                                    <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
-                                        <div class="row">
-                                            <div class="text-right width-100">
-                                                <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
-                                                    Tech
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 light-heading2">
-                                                Novi Canon ofbeebefb super
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 div2-date">
-                                                February 2,2015 12:58
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100">
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row padding-0">
-                                <div class="col-50 width-100" style="border: 4px solid #201727">
-                                    <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
-                                        <div class="row">
-                                            <div class="text-right width-100">
-                                                <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
-                                                    Tech
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 light-heading2">
-                                                Novi Canon ofbeebefb super
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 div2-date">
-                                                February 2,2015 12:58
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100">
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-50 width-100" style="border: 4px solid #201727">
-                                    <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
-                                        <div class="row">
-                                            <div class="text-right width-100">
-                                                <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
-                                                    Tech
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 light-heading2">
-                                                Novi Canon ofbeebefb super
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100 div2-date">
-                                                February 2,2015 12:58
-                                            </div>
-                                        </div>
-                                        <div class="row padding-top-6">
-                                            <div class="width-100">
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
-                                                <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </ion-content>
-                        </ion-slide>
-			            <ion-slide>
-			                <h3>Favorites</h3>
-			            </ion-slide>
-					 </ion-slide-box>
-          	</tab-slide-box>
-        </ion-content>
-      </ion-view>
+  <ion-view title="Scrollable Tabbed Slide box" hide-nav-bar="true">
+  <ion-header-bar align-title="left" class="bar-positive">
+      <div class="buttons">
+          <button class="button button-icon button-clear ion-ios7-cart-outline ion-navicon" ng-click="toggleLeft()">
+          </button>
+      </div>
+      <h1 class="title ">News @ Noon</h1>
+      <div class="buttons">
+          <img src="img/ustglobal.jpg"/>
+      </div>
+  </ion-header-bar>
+  <ion-content scroll="false">
+  <tab-slide-box>
+  <div class="tsb-icons">
+      <div class="tsb-ic-wrp">
+          <ion-scroll direction="x" class="tsb-hscroll">
+              <a href="javascript:;" class="ion-home1">Latest</a>
+              <a href="javascript:;" class="ion-game-controller-b1">Popular</a>
+              <a href="javascript:;" class="ion-email1">Favorites</a>
+          </ion-scroll>
+      </div>
+  </div>
+  <ion-slide-box show-pager="false"  on-slide-changed="slideHasChanged($index)">
+  <ion-slide>
+      <h3>Latest</h3>
+  </ion-slide>
+  <ion-slide>
+  <ion-content>
+  <div class="row padding-0">
+      <div class="col div1" style="background: url('img/news1.jpg'); background-size: 100% 100%">
+          <div class="row">
+              <div class="col-60 width-100 padding-top-10">
+                  <h3>NAJNOVILE VESTI</h3>
+              </div>
+              <div class="col-40 text-right width-100">
+                  <button style="" class="button button-small button-positive padding-left-20 padding-right-20">
+                      Tech
+                  </button>
+              </div>
+          </div>
+          <div class="row padding-top-6">
+              <div class="light-heading">
+                  Novi Canon ofbeebefb super
+                  cenenm izlala u Februvafe
+              </div>
+          </div>
+          <div class="row padding-top-6">
+              <div class="col-50 width-100">
+                  February 2,2015 12:58
+              </div>
+              <div class="col-50 width-100">
+                  <div class="float-right width-30"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
+                  <div class="float-right width-30"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
+                  <div class="float-right width-30"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row padding-0">
+      <div class="col-50 width-100" style="border: 4px solid #201727">
+          <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
+              <div class="row">
+                  <div class="text-right width-100">
+                      <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
+                          Tech
+                      </button>
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 light-heading2">
+                      Novi Canon ofbeebefb super
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 div2-date">
+                      February 2,2015 12:58
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100">
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-50 width-100" style="border: 4px solid #201727">
+          <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
+              <div class="row">
+                  <div class="text-right width-100">
+                      <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
+                          Tech
+                      </button>
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 light-heading2">
+                      Novi Canon ofbeebefb super
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 div2-date">
+                      February 2,2015 12:58
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100">
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row padding-0">
+      <div class="col-50 width-100" style="border: 4px solid #201727">
+          <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
+              <div class="row">
+                  <div class="text-right width-100">
+                      <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
+                          Tech
+                      </button>
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 light-heading2">
+                      Novi Canon ofbeebefb super
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 div2-date">
+                      February 2,2015 12:58
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100">
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-50 width-100" style="border: 4px solid #201727">
+          <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
+              <div class="row">
+                  <div class="text-right width-100">
+                      <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
+                          Tech
+                      </button>
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 light-heading2">
+                      Novi Canon ofbeebefb super
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 div2-date">
+                      February 2,2015 12:58
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100">
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row padding-0">
+      <div class="col-50 width-100" style="border: 4px solid #201727">
+          <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
+              <div class="row">
+                  <div class="text-right width-100">
+                      <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
+                          Tech
+                      </button>
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 light-heading2">
+                      Novi Canon ofbeebefb super
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 div2-date">
+                      February 2,2015 12:58
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100">
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-50 width-100" style="border: 4px solid #201727">
+          <div class="col div2" style="background: url('img/news2.jpg'); background-size: 100% 100%">
+              <div class="row">
+                  <div class="text-right width-100">
+                      <button style="" class="button button-small button-positive padding-left-10 padding-right-10">
+                          Tech
+                      </button>
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 light-heading2">
+                      Novi Canon ofbeebefb super
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100 div2-date">
+                      February 2,2015 12:58
+                  </div>
+              </div>
+              <div class="row padding-top-6">
+                  <div class="width-100">
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-heart"> 24 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-chatbubbles"> 34 </i></div>
+                      <div class="float-right width-33"><i style="color: #ffffff" class="icon  ion-eye"> 55 </i></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </ion-content>
+  </ion-slide>
+  <ion-slide>
+      <h3>Favorites</h3>
+  </ion-slide>
+  </ion-slide-box>
+  </tab-slide-box>
+  </ion-content>
+  </ion-view>
   </script>
+
+
+  <script id="firstSlide.html" type="text/ng-template">
+      <h1>First Slide!</h1>
+      <button class="button button-assertive" ng-click="showBonus()" ng-if="data.initialInstruction">Show Bonus Slide</button>
+      <p class="padding" ng-if="data.initialInstruction">Notice at first there are only 3 slides</p>
+      <p class="padding" ng-if="data.secondInstruction">Now there are 4 slides</p>
+
+    </script>
+
+    <script id="secondSlide.html" type="text/ng-template">
+      <h1>Second Slide!</h1>
+    </script>
+
+    <script id="bonusSlide.html" type="text/ng-template">
+      <h1>Bonus Slide!</h1>
+    </script>  
+
+    <script id="thirdSlide.html" type="text/ng-template">
+      <h1>Third Slide!</h1>
+    </script>   
+    <script id="intro.html" type="text/ng-template"> 
+      <ion-view hide-back-button="true">
+        <ion-nav-buttons side="left">
+          <button class="button button-positive button-clear no-animation"
+                  ng-click="previous()" ng-if="data.slideIndex > 0">
+            Previous Slide
+          </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right"> 
+          <button class="button button-positive button-clear no-animation"
+                  ng-click="next()" ng-if="data.slideIndex < data.numViewableSlides - 1">
+            Next
+          </button>
+        </ion-nav-buttons>
+        <ion-slide-box on-slide-changed="slideChanged(index)">
+
+          <ion-slide ng-repeat="slide in data.slides | filter:{viewable : true}">
+            <div ng-include src="slide.template"></div>
+          </ion-slide>
+
+        </ion-slide-box>
+      </ion-view>
+    </script>
   </body>
+</html>
+
+  <script src="js/index.js"></script>
+
+</body>
+
 </html>
