@@ -49,18 +49,31 @@
 				url : '/',
 				templateUrl : 'index.html',
 				controller : 'IndexCtrl'
-			});
+			})
+                    .state('browse', {
+                url : '/',
+                templateUrl : 'browse.html',
+                controller : 'BrowseCtrl'
+            });
 
 			$urlRouterProvider.otherwise("/");
 		});
 
-        app.controller("IndexCtrl", ['$rootScope', "$scope", "$stateParams", "$q", "$location", "$window", '$timeout',
-			function($rootScope, $scope, $stateParams, $q, $location, $window, $timeout){
+        app.controller("IndexCtrl", ['$rootScope', "$scope", "$stateParams", "$q", "$location", "$window", '$timeout','$state',
+			function($rootScope, $scope, $stateParams, $q, $location, $window, $timeout,$state){
+        	$scope.gotobrowse = function(){
+				$state.go("browse");
+			};
 //        	$scope.onSlideMove = function(data){
 //				alert("You have selected " + data.index + " tab");
 //			};
-        }
-        ]);
+        }]);
+        app.controller("BrowseCtrl", ['$rootScope', "$scope", "$stateParams", "$q", "$location", "$window", '$timeout',
+            function($rootScope, $scope, $stateParams, $q, $location, $window, $timeout){
+//        	$scope.onSlideMove = function(data){
+//				alert("You have selected " + data.index + " tab");
+//			};
+            }]);
     </script>
 
 	<style>
@@ -162,11 +175,8 @@
           }
 
       </style>
-	
   </head>
-
   <body ng-app="starter" animation="slide-left-right-ios7">
-
   <ion-side-menus enable-menu-with-back-views="false">
       <ion-side-menu-content>
           <ion-nav-bar class="bar-stable">
@@ -184,7 +194,7 @@
           <ion-header-bar class="bar-stable">
               <h1 class="title">Left</h1>
           </ion-header-bar>
-          <ion-content>
+          <ion-content ng-controller="IndexCtrl">
               <ion-list>
                   <ion-item nav-clear menu-close ng-click="login()">
                       Login
@@ -192,8 +202,8 @@
                   <ion-item nav-clear menu-close href="#/app/search">
                       Search
                   </ion-item>
-                  <ion-item nav-clear menu-close href="#/app/browse">
-                      Browse
+                  <ion-item nav-clear menu-close ng-click="gotobrowse()">
+                     Browse
                   </ion-item>
                   <ion-item nav-clear menu-close href="#/app/playlists">
                       Playlists
@@ -203,6 +213,29 @@
       </ion-side-menu>
   </ion-side-menus>
 
+  <script id="browse.html" type="text/ng-template">
+      <ion-view view-title="Playlists" hide-nav-bar="true">
+          <ion-header-bar align-title="left" class="bar-dark">
+              <div class="buttons">
+                  <button class="button button-icon button-clear ion-ios7-cart-outline ion-navicon" ng-click="toggleLeft()">
+                  </button>
+              </div>
+              <h1 class="title" style="text-align: center;width: 60%;">
+              </h1>
+              <div class="buttons">
+                  <button style="margin-right:5px" class="button button-icon button-clear ion-ios7-search">
+                  </button>
+                  <button style="margin-right:5px" class="button button-icon button-clear ion-ios7-plus-outline">
+                  </button>
+                  <button style="margin-right:5px" class="button button-icon button-clear ion-usb" ng-click="gotoslidetabs()">
+                  </button>
+              </div>
+          </ion-header-bar>
+          <ion-content>
+              <h1>Browse</h1>
+          </ion-content>
+      </ion-view>
+  </script>
   <script id="index.html" type="text/ng-template">
         <ion-view title="Scrollable Tabbed Slide box" hide-nav-bar="true">
             <ion-header-bar align-title="left" class="bar-positive">
@@ -226,11 +259,12 @@
 							</ion-scroll>
 						</div>
 			    	</div>
-			        <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+			        <ion-slide-box show-pager="false"  on-slide-changed="slideHasChanged($index)">
 			            <ion-slide>
 			                <h3>Latest</h3>
 			            </ion-slide>
 			            <ion-slide>
+                        <ion-content>
                             <div class="row padding-0">
                                 <div class="col div1" style="background: url('img/news1.jpg'); background-size: 100% 100%">
                                     <div class="row">
@@ -435,7 +469,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            </ion-content>
                         </ion-slide>
 			            <ion-slide>
 			                <h3>Favorites</h3>
