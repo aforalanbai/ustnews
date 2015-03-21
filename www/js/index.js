@@ -1,6 +1,7 @@
 var app = angular.module('ionicApp', ['ionic','tabSlideBox'])
 app.run(function($ionicPlatform,$ionicSideMenuDelegate,$rootScope) {
     $ionicPlatform.ready(function() {
+        $rootScope.sortorder = [1,2,3,4];
         $rootScope.toggleLeft = function() {
             $ionicSideMenuDelegate.toggleLeft();
         };
@@ -23,12 +24,12 @@ app.run(function($ionicPlatform,$ionicSideMenuDelegate,$rootScope) {
   $stateProvider
   .state('intro', {
     url: '/intro',
-    templateUrl: 'intro.html',
+    templateUrl: 'partials/intro.html',
     controller: 'IntroCtrl'
   })
       .state('index', {
           url : '/',
-          templateUrl : 'index.html',
+          templateUrl : 'partials/index.html',
           controller : 'IndexCtrl'
       })
 
@@ -37,51 +38,45 @@ app.run(function($ionicPlatform,$ionicSideMenuDelegate,$rootScope) {
 })
 
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
-
-  $scope.data = {
+        $scope.data = {
     numViewableSlides : 0,
     slideIndex : 0,
     initialInstruction : true,
-    secondInstruction : false,
-    slides : [
-    {
-      'template' : 'firstSlide.html',
-      'viewable' : true
-    },
-
-    {
-      'template' : 'bonusSlide.html',
-      'viewable' : true
-    },
-    
-    {
-      'template' : 'secondSlide.html',
-      'viewable' : true
-    },
-
-    {
-      'template' : 'thirdSlide.html',
-      'viewable' : true
-    }
-  ]
+    secondInstruction : false
   };
-  
-  var countSlides = function() {
+        $scope.data.slides=[
+            {
+                'template' : 'partials/1.html',
+                'viewable' : true
+            },
+
+            {
+                'template' : 'partials/2.html',
+                'viewable' : true
+            },
+
+            {
+                'template' : 'partials/3.html',
+                'viewable' : true
+            }
+        ];
+        $scope.data.slides.push(
+            {
+            'template' : 'partials/4.html',
+            'viewable' : true
+        });
+        var countSlides = function() {
     $scope.data.numViewableSlides = 0;
-    
     _.forEach($scope.data.slides, function(slide) {
       if(slide.viewable === true) $scope.data.numViewableSlides++;
     })
     
     console.log($scope.data.numViewableSlides + " viewable slides");
   }
-  
-  countSlides();
-  
-  // Called to navigate to the main app
-  //$scope.startApp = function() {
-  //  $state.go('main');
-  //};
+        countSlides();
+        $scope.gotohome = function() {
+            $state.go("index");
+        };
   $scope.next = function() {
     $ionicSlideBoxDelegate.next();
   };
@@ -108,6 +103,10 @@ app.run(function($ionicPlatform,$ionicSideMenuDelegate,$rootScope) {
 });
 app.controller("IndexCtrl", ['$rootScope', "$scope", "$stateParams", "$q", "$location", "$window", '$timeout','$state',
     function($rootScope, $scope, $stateParams, $q, $location, $window, $timeout,$state){
+
+     $scope.gotoSlide = function(index) {
+         $state.go("intro");
+     };
         $scope.gotobrowse = function(){
             $state.go("intro");
         };

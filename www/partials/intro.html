@@ -1,0 +1,21 @@
+    <ion-view hide-back-button="true" view-title="UST GLOBAL">
+        <ion-nav-buttons side="left">
+            <button class="button icon-left ion-home" ng-click="gotohome()"></button>
+            <button class="button button icon-left ion-chevron-left"
+                    ng-click="previous()" ng-if="data.slideIndex > 0" style="color:#ffffff">
+                Prev
+            </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button class="button icon-right ion-chevron-right"
+                    ng-click="next()" ng-if="data.slideIndex < data.numViewableSlides - 1" style="color:#ffffff">
+                Next
+            </button>
+        </ion-nav-buttons>
+        <ion-slide-box on-slide-changed="slideChanged(index)">
+
+            <ion-slide ng-repeat="slide in data.slides | filter:{viewable : true}">
+                <ion-content>   <div ng-include src="slide.template"></div>  </ion-content>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-view>
